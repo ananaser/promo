@@ -5,6 +5,96 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Royal Captain — We Care (Mon–Thu) — Up to 50% discount</title>
 <style>
+  /* ==== Slider ==== */
+.slider{
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.slider .rail{
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE/Edge legacy */
+}
+.slider .rail::-webkit-scrollbar{ display: none; } /* Chrome/Safari */
+.slider .rail img{
+  width: 100%;
+  height: clamp(220px, 42vw, 420px); /* адаптивная высота */
+  object-fit: cover;
+  scroll-snap-align: start;
+  user-select: none;
+  pointer-events: none; /* чтобы свайпить по картинке */
+  display: block;
+}
+/* ==== Slider 16:9 ==== */
+.slider{
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.slider .rail{
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  gap: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.slider .rail::-webkit-scrollbar{ display: none; }
+.slider .slide{
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  scroll-snap-align: start;
+  position: relative;
+  background: #0a0a0a;
+}
+.slider .slide img{
+  position: absolute; inset:0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block; user-select: none; pointer-events: none;
+}
+.slider .nav{
+  position: absolute; top: 50%;
+  transform: translateY(-50%);
+  width: 40px; height: 40px;
+  border-radius: 20px; border: none;
+  cursor: pointer; background: rgba(0,0,0,.45);
+  color: #fff; font-size: 24px;
+  display: grid; place-items: center;
+  transition: background .2s ease, transform .06s ease;
+}
+.slider .nav:active{ transform: translateY(-50%) scale(.97); }
+.slider .prev{ left: 8px; }
+.slider .next{ right: 8px; }
+@media (hover:hover){ .slider .nav:hover{ background: rgba(0,0,0,.65); } }
+
+/* Кнопки навигации */
+.slider .nav{
+  position: absolute; top: 50%;
+  transform: translateY(-50%);
+  width: 40px; height: 40px;
+  border-radius: 20px;
+  border: none; cursor: pointer;
+  background: rgba(0,0,0,.45);
+  color: #fff; font-size: 24px; line-height: 40px;
+  display: grid; place-items: center;
+  transition: background .2s ease, transform .06s ease;
+}
+.slider .nav:active{ transform: translateY(-50%) scale(.97); }
+.slider .prev{ left: 8px; }
+.slider .next{ right: 8px; }
+@media (hover:hover){
+  .slider .nav:hover{ background: rgba(0,0,0,.65); }
+}
+
   :root{
     --gold:#d4af37; --bg:#0f0f0f; --card:#171717; --text:#f6f6f6;
     /* Controls for center video framing */
@@ -107,18 +197,81 @@
       </a>
     </div>
 
-    <div class="card">
-      <h3 style="margin:0 0 8px;font-size:18px;">References</h3>
-      <div class="refs">
-        <img src="https://placehold.co/800x600/jpg?text=Interior+1" alt="Interior 1">
-        <img src="https://placehold.co/800x600/jpg?text=Interior+2" alt="Interior 2">
-        <img src="https://placehold.co/800x600/jpg?text=Before+%26+After" alt="Before and After">
-        <img src="https://placehold.co/800x600/jpg?text=Tool+%26+Station" alt="Tool and Station">
-      </div>
+<!-- IMAGE SLIDER -->
+<!-- IMAGE SLIDER 16:9 -->
+<div class="card">
+  <h3 style="margin:0 0 8px;font-size:18px;">Gallery</h3>
+
+  <div class="slider" id="gallery">
+    <button class="nav prev" aria-label="Previous">‹</button>
+
+    <div class="rail" tabindex="0">
+      <figure class="slide"><img src="./img/fade1.JPG" alt="Fade 1"></figure>
+      <figure class="slide"><img src="./img/fade2.JPG" alt="Fade 2"></figure>
+      <figure class="slide"><img src="https://placehold.co/1600x900/jpg?text=Interior+1" alt="Interior 1"></figure>
+      <figure class="slide"><img src="https://placehold.co/1600x900/jpg?text=Interior+2" alt="Interior 2"></figure>
     </div>
+
+    <button class="nav next" aria-label="Next">›</button>
+  </div>
+</div>
+
+
+    <button class="nav next" aria-label="Next">›</button>
+  </div>
+</div>
+
 
     <div class="terms">Not valid with other promotions. Limited time only. Subject to availability.</div>
     <div class="footer">Royal Captain Barbershop · 263 Glenferrie Rd, Malvern 3144 · (03) 9372 2347</div>
   </div>
+  <script>
+  (function(){
+    const slider = document.getElementById('gallery');
+    if(!slider) return;
+    const rail = slider.querySelector('.rail');
+    const prev = slider.querySelector('.prev');
+    const next = slider.querySelector('.next');
+
+    function scrollOne(dir){
+      const w = rail.clientWidth;
+      rail.scrollBy({ left: dir * w, behavior: 'smooth' });
+    }
+    prev.addEventListener('click', ()=>scrollOne(-1));
+    next.addEventListener('click', ()=>scrollOne( 1));
+
+    // колесо мыши -> горизонтальная прокрутка
+    rail.addEventListener('wheel', (e)=>{
+      if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+        rail.scrollBy({ left: e.deltaY, behavior: 'auto' });
+        e.preventDefault();
+      }
+    }, { passive:false });
+  })();
+</script>
+<script>
+  (function(){
+    const slider = document.getElementById('gallery');
+    if(!slider) return;
+    const rail = slider.querySelector('.rail');
+    const prev = slider.querySelector('.prev');
+    const next = slider.querySelector('.next');
+
+    function scrollOne(dir){
+      const w = rail.clientWidth;
+      rail.scrollBy({ left: dir * w, behavior: 'smooth' });
+    }
+    prev.addEventListener('click', ()=>scrollOne(-1));
+    next.addEventListener('click', ()=>scrollOne(1));
+
+    rail.addEventListener('wheel', (e)=>{
+      if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+        rail.scrollBy({ left: e.deltaY, behavior: 'auto' });
+        e.preventDefault();
+      }
+    }, { passive:false });
+  })();
+</script>
+
 </body>
 </html>

@@ -39,8 +39,11 @@
     border:0;
   }
 
-  h1{font-size:clamp(24px,5.8vw,36px);line-height:1.12;margin:6px 0 4px;color:var(--gold)}
-  .sub{opacity:.95;margin:0 0 10px;font-size:clamp(14px,3.6vw,16px)}
+  h1{font-size:clamp(44px,5.8vw,16px);line-height:1.12;margin:6px 0 4px;color:var(--gold)}
+  .sub{opacity:.95;margin:0 0 10px;font-size:clamp(10px,3.6vw,16px)}
+  .sub b{color:var(--gold)}
+  h2{font-size:clamp(24px,5.8vw,16px);line-height:1.12;margin:6px 0 4px;color:var(--gold)}
+  .sub{opacity:.95;margin:0 0 10px;font-size:clamp(10px,3.6vw,16px)}
   .sub b{color:var(--gold)}
   hr.split{border:none;border-top:1px solid rgba(255,255,255,.12);margin:10px 0}
   .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-bottom:12px}
@@ -50,7 +53,21 @@
   .old{opacity:.65;text-decoration:line-through}
   .new{color:var(--gold);font-weight:800}
   .cta{text-align:center;margin-top:12px}
-  .cta a{display:inline-block;width:100%;padding:16px;border-radius:12px;background:var(--gold);color:#111;text-decoration:none;font-weight:900;font-size:18px;letter-spacing:.02em;touch-action:manipulation;transition:transform .08s ease,box-shadow .2s ease}
+  .cta a {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;  /* учитывает padding родителя */
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--gold);
+  color: #111;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: .02em;
+  touch-action: manipulation;
+  transition: transform .08s ease, box-shadow .2s ease;
+}
   .cta a:active{transform:scale(.99)}
   .terms,.footer{text-align:center;opacity:.85;font-size:13px;margin-top:8px}
 
@@ -105,8 +122,9 @@
       </div>
     </div>
 
-    <h1>Up to 50% discount</h1>
-    <p class="sub">for Emmy Monash Staff — valid Monday–Thursday. Only for bookings with <b>Sergey</b>.</p>
+    <h1>We are care!</h1>
+        <h2>Up to 50% discount for Emmy Monash Staff </h2>
+    <p class="sub"> *Valid Monday–Thursday. Only for bookings with <b>Sergey</b>.</p>
     <hr class="split">
 
     <div class="card">

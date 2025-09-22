@@ -5,111 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Royal Captain — We Care (Mon–Thu) — Up to 50% discount</title>
 <style>
-  /* ==== Slider ==== */
-.slider{
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-}
-.slider .rail{
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 100%;
-  gap: 0;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* IE/Edge legacy */
-}
-.slider .rail::-webkit-scrollbar{ display: none; } /* Chrome/Safari */
-.slider .rail img{
-  width: 100%;
-  height: clamp(220px, 42vw, 420px); /* адаптивная высота */
-  object-fit: cover;
-  scroll-snap-align: start;
-  user-select: none;
-  pointer-events: none; /* чтобы свайпить по картинке */
-  display: block;
-}
-/* ==== Slider 16:9 ==== */
-.slider{
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-}
-.slider .rail{
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 100%;
-  gap: 0;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.slider .rail::-webkit-scrollbar{ display: none; }
-.slider .slide{
-  aspect-ratio: 16 / 9;
-  width: 100%;
-  scroll-snap-align: start;
-  position: relative;
-  background: #0a0a0a;
-}
-.slider .slide img{
-  position: absolute; inset:0;
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: center;
-  display: block; user-select: none; pointer-events: none;
-}
-.slider .nav{
-  position: absolute; top: 50%;
-  transform: translateY(-50%);
-  width: 40px; height: 40px;
-  border-radius: 20px; border: none;
-  cursor: pointer; background: rgba(0,0,0,.45);
-  color: #fff; font-size: 24px;
-  display: grid; place-items: center;
-  transition: background .2s ease, transform .06s ease;
-}
-.slider .nav:active{ transform: translateY(-50%) scale(.97); }
-.slider .prev{ left: 8px; }
-.slider .next{ right: 8px; }
-@media (hover:hover){ .slider .nav:hover{ background: rgba(0,0,0,.65); } }
-
-/* Кнопки навигации */
-.slider .nav{
-  position: absolute; top: 50%;
-  transform: translateY(-50%);
-  width: 40px; height: 40px;
-  border-radius: 20px;
-  border: none; cursor: pointer;
-  background: rgba(0,0,0,.45);
-  color: #fff; font-size: 24px; line-height: 40px;
-  display: grid; place-items: center;
-  transition: background .2s ease, transform .06s ease;
-}
-.slider .nav:active{ transform: translateY(-50%) scale(.97); }
-.slider .prev{ left: 8px; }
-.slider .next{ right: 8px; }
-@media (hover:hover){
-  .slider .nav:hover{ background: rgba(0,0,0,.65); }
-}
-
+  
   :root{
     --gold:#d4af37; --bg:#0f0f0f; --card:#171717; --text:#f6f6f6;
-    /* Controls for center video framing */
-    --videoScale: 1.60;   /* increase if you still see black edges */
-    --videoShiftX: 6%;    /* positive = move right; negative = left */
-    --videoShiftY: 0%;    /* positive = move down; negative = up */
+    /* Center-video framing controls */
+    --videoScale: 1.60;     /* increase if you still see black edges */
+    --videoShiftX: 6%;      /* positive = move right; negative = left */
+    --videoShiftY: 0%;      /* positive = move down; negative = up */
   }
   html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
   .wrap{max-width:640px;margin:0 auto;padding:16px}
-  .brand{text-align:center;margin:8px 0 8px}
-  .brand img.logo{display:block;margin:0 auto;max-width:min(92vw,520px);width:100%;height:auto;border:none;outline:none;box-shadow:none;background:transparent}
-  .hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;align-items:center;margin:10px 0 6px}
+
+  /* ===== Brand with circular logo ===== */
+  .brand-row{
+    display:grid; grid-template-columns:1fr; justify-items:center;
+    margin:8px 0 6px;
+  }
   .circle{position:relative;aspect-ratio:1/1;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+  .logo-circle{width:100%; max-width:210px;} /* adjust 190–230px to match hero circles */
+  .logo-circle img{
+    width:100%; height:100%; object-fit:contain; object-position:center;
+    display:block; padding:10%; background:#000;
+  }
+
+  /* ===== Hero (three circles: img, video, img) ===== */
+  .hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;align-items:center;margin:10px 0 6px}
   .hero img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
-  /* center circle: fit & offset Google Drive preview */
   .media-fit{position:absolute; inset:0; border-radius:inherit; overflow:hidden}
   .media-fit iframe{
     position:absolute; left:50%; top:50%;
@@ -119,8 +40,11 @@
     border:0;
   }
 
-  h1{font-size:clamp(24px,5.8vw,36px);line-height:1.12;margin:6px 0 4px;color:var(--gold)}
-  .sub{opacity:.95;margin:0 0 10px;font-size:clamp(14px,3.6vw,16px)}
+  h1{font-size:clamp(44px,5.8vw,16px);line-height:1.12;margin:6px 0 4px;color:var(--gold)}
+  .sub{opacity:.95;margin:0 0 10px;font-size:clamp(10px,3.6vw,16px)}
+  .sub b{color:var(--gold)}
+  h2{font-size:clamp(24px,5.8vw,16px);line-height:1.12;margin:6px 0 4px;color:var(--gold)}
+  .sub{opacity:.95;margin:0 0 10px;font-size:clamp(10px,3.6vw,16px)}
   .sub b{color:var(--gold)}
   hr.split{border:none;border-top:1px solid rgba(255,255,255,.12);margin:10px 0}
   .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;margin-bottom:12px}
@@ -130,53 +54,97 @@
   .old{opacity:.65;text-decoration:line-through}
   .new{color:var(--gold);font-weight:800}
   .cta{text-align:center;margin-top:12px}
-  .cta a{display:inline-block;width:100%;padding:16px;border-radius:12px;background:var(--gold);color:#111;text-decoration:none;font-weight:900;font-size:18px;letter-spacing:.02em;touch-action:manipulation;transition:transform .08s ease,box-shadow .2s ease}
+  .cta a {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;  /* учитывает padding родителя */
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--gold);
+  color: #111;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: .02em;
+  touch-action: manipulation;
+  transition: transform .08s ease, box-shadow .2s ease;
+}
   .cta a:active{transform:scale(.99)}
-  .note,.terms,.footer{text-align:center;opacity:.85;font-size:13px;margin-top:8px}
-  .refs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  @media(min-width:560px){ .refs{grid-template-columns:1fr 1fr 1fr} }
-  .refs img{width:100%;height:180px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.08)}
+  .terms,.footer{text-align:center;opacity:.85;font-size:13px;margin-top:8px}
+
+  /* ===== Map ===== */
   .map iframe{width:100%;height:340px;border:0;border-radius:14px}
   .map .open{display:block;text-align:center;margin-top:8px;color:var(--gold);font-weight:700;text-decoration:none}
+
+  /* ===== Slider 9:16 under the map ===== */
+  .slider{position:relative;border-radius:14px;overflow:hidden}
+  .slider .rail{
+    display:grid;grid-auto-flow:column;grid-auto-columns:100%;
+    gap:0;overflow-x:auto;scroll-snap-type:x mandatory;
+    scrollbar-width:none;-ms-overflow-style:none;
+  }
+  .slider .rail::-webkit-scrollbar{display:none;}
+  .slider .slide{aspect-ratio:9/16;width:100%;scroll-snap-align:start;position:relative;background:#0a0a0a}
+  .slider .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;user-select:none;pointer-events:none}
+  .slider .nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:40px;height:40px;border-radius:20px;border:none;cursor:pointer;
+    background:rgba(0,0,0,.45);color:#fff;font-size:24px;display:grid;place-items:center;
+    transition:background .2s ease, transform .06s ease;
+  }
+  .slider .nav:active{transform:translateY(-50%) scale(.97)}
+  .slider .prev{left:8px} .slider .next{right:8px}
+  @media (hover:hover){ .slider .nav:hover{background:rgba(0,0,0,.65)} }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="brand">
-      <!-- Optional logo slot: replace with your hosted PNG if desired -->
-      <!-- <img class="logo" src="./img/logo.png" alt="Royal Captain Barbershop logo"> -->
-    </div>
 
+    <!-- Brand:  logo -->
+<div class="brand" style="text-align:center; margin:12px 0;">
+  <img src="./img/logo.png" 
+       alt="Royal Captain — Barber Shop" 
+       style="width:100%; max-width:643px; height:auto;">
+</div>
+
+
+    <!-- Hero: three circles -->
     <div class="hero">
       <div class="circle">
         <img src="./img/fade1.JPG" alt="Fade haircut 1">
       </div>
-
       <div class="circle">
         <div class="media-fit">
           <iframe src="https://drive.google.com/file/d/106e0EXeh61cuM_jTCUVpIoiSw5hHrDxa/preview" allow="autoplay"></iframe>
         </div>
       </div>
-
-      <div class="circle fade2-img">
+      <div class="circle">
         <img src="./img/fade2.JPG" alt="Fade haircut 2">
       </div>
     </div>
 
-    <h1>Up to 50% discount</h1>
-    <p class="sub">for Emmy Monash Staff — valid Monday–Thursday. Only for bookings with <b>Sergey</b>.</p>
+    <h1>We are care!</h1>
+        <h2>Up to 50% discount for Emmy Monash Staff </h2>
+    <p class="sub"> *Valid Monday–Thursday. Only for bookings with <b>Sergey</b>.</p>
     <hr class="split">
 
     <div class="card">
       <table aria-label="Promo prices">
-        <thead><tr><th>Service</th><th>Usual</th><th>Promo (-$10)</th></tr></thead>
+        <thead><tr><th>Service</th><th>Usual</th><th>Promo price</th></tr></thead>
         <tbody>
-          <tr><td>Skin Fade</td><td class="old">$45</td><td class="new">$35</td></tr>
-          <tr><td>Classic Cut</td><td class="old">$40</td><td class="new">$30</td></tr>
-          <tr><td>Uni Student Cut</td><td class="old">$30</td><td class="new">$20</td></tr>
-          <tr><td>Buzz Cut</td><td class="old">$25</td><td class="new">$15</td></tr>
+          <tr><td>Skin Fade</td><td class="old">$45</td><td class="new">$30</td></tr>
+          <tr><td>Classic Cut</td><td class="old">$40</td><td class="new">$25</td></tr>
+          <tr><td>Buzz Cut</td><td class="old">$30</td><td class="new">$15</td></tr>
         </tbody>
       </table>
+      <table aria-label="Promo prices">
+
+<!-- Новый блок с подсказкой -->
+<p class="mention">
+  <strong> % To receive the discount mention that you are from Emmy at counter .</strong>
+</p>
+</div>
+
       <div class="cta">
         <a href="https://home.shortcutssoftware.com/royalcaptainbarbershop?app_mode=true&container_type=_h&source=google_reserve&hl=en-AU#/_h/sites/70857/select-employee?servicesId=15&utm_source=emmy_monash&utm_medium=promo_landing&utm_campaign=we_care_mon_thu" target="_blank" rel="noopener">
           BOOK NOW — Choose Sergey
@@ -184,6 +152,7 @@
       </div>
     </div>
 
+    <!-- Map -->
     <div class="card map">
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6300.235884889149!2d145.02635217581954!3d-37.85753067196471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad6699905356645%3A0x42f2c9b794eaf762!2sRoyal%20Captain%20Barber%20Shop!5e0!3m2!1sen!2sau!4v1757655107304!5m2!1sen!2sau"
@@ -197,80 +166,50 @@
       </a>
     </div>
 
-<!-- IMAGE SLIDER -->
-<!-- IMAGE SLIDER 16:9 -->
-<div class="card">
-  <div class="slider" id="gallery">
-    <button class="nav prev" aria-label="Previous">‹</button>
-
-    <div class="rail" tabindex="0">
-      <figure class="slide"><img src="./img/fade1.JPG" alt="Fade 1"></figure>
-      <figure class="slide"><img src="./img/fade2.JPG" alt="Fade 2"></figure>
-      <figure class="slide"><img src="https://placehold.co/1600x900/jpg?text=Interior+1" alt="Interior 1"></figure>
-      <figure class="slide"><img src="https://placehold.co/1600x900/jpg?text=Interior+2" alt="Interior 2"></figure>
+    <!-- Gallery slider 9:16 -->
+    <div class="card">
+      <h3 style="margin:0 0 8px;font-size:18px;">Gallery</h3>
+      <div class="slider" id="gallery">
+        <button class="nav prev" aria-label="Previous">‹</button>
+        <div class="rail" tabindex="0">
+          <figure class="slide"><img src="./img/interior1.jpg" alt="Interior 1" loading="lazy"></figure>
+          <figure class="slide"><img src="./img/team.JPG" alt="Team" loading="lazy"></figure>
+          <figure class="slide"><img src="./img/fade1.JPG" alt="Fade 1" loading="lazy"></figure>
+          <figure class="slide"><img src="./img/fade2.JPG" alt="Fade 2" loading="lazy"></figure>
+          
+        </div>
+        <button class="nav next" aria-label="Next">›</button>
+      </div>
     </div>
-
-    <button class="nav next" aria-label="Next">›</button>
-  </div>
-</div>
-
-
-    <button class="nav next" aria-label="Next">›</button>
-  </div>
-</div>
-
 
     <div class="terms">Not valid with other promotions. Limited time only. Subject to availability.</div>
     <div class="footer">Royal Captain Barbershop · 263 Glenferrie Rd, Malvern 3144 · (03) 9372 2347</div>
   </div>
+
+  <!-- Slider JS -->
   <script>
-  (function(){
-    const slider = document.getElementById('gallery');
-    if(!slider) return;
-    const rail = slider.querySelector('.rail');
-    const prev = slider.querySelector('.prev');
-    const next = slider.querySelector('.next');
+    (function(){
+      const slider = document.getElementById('gallery');
+      if(!slider) return;
+      const rail = slider.querySelector('.rail');
+      const prev = slider.querySelector('.prev');
+      const next = slider.querySelector('.next');
 
-    function scrollOne(dir){
-      const w = rail.clientWidth;
-      rail.scrollBy({ left: dir * w, behavior: 'smooth' });
-    }
-    prev.addEventListener('click', ()=>scrollOne(-1));
-    next.addEventListener('click', ()=>scrollOne( 1));
-
-    // колесо мыши -> горизонтальная прокрутка
-    rail.addEventListener('wheel', (e)=>{
-      if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
-        rail.scrollBy({ left: e.deltaY, behavior: 'auto' });
-        e.preventDefault();
+      function scrollOne(dir){
+        const w = rail.clientWidth;
+        rail.scrollBy({ left: dir * w, behavior: 'smooth' });
       }
-    }, { passive:false });
-  })();
-</script>
-<script>
-  (function(){
-    const slider = document.getElementById('gallery');
-    if(!slider) return;
-    const rail = slider.querySelector('.rail');
-    const prev = slider.querySelector('.prev');
-    const next = slider.querySelector('.next');
+      prev.addEventListener('click', ()=>scrollOne(-1));
+      next.addEventListener('click', ()=>scrollOne( 1));
 
-    function scrollOne(dir){
-      const w = rail.clientWidth;
-      rail.scrollBy({ left: dir * w, behavior: 'smooth' });
-    }
-    prev.addEventListener('click', ()=>scrollOne(-1));
-    next.addEventListener('click', ()=>scrollOne(1));
-
-    rail.addEventListener('wheel', (e)=>{
-      if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
-        rail.scrollBy({ left: e.deltaY, behavior: 'auto' });
-        e.preventDefault();
-      }
-    }, { passive:false });
-  })();
-</script>
-
+      // wheel -> horizontal scrolling
+      rail.addEventListener('wheel', (e)=>{
+        if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+          rail.scrollBy({ left: e.deltaY, behavior: 'auto' });
+          e.preventDefault();
+        }
+      }, { passive:false });
+    })();
+  </script>
 </body>
 </html>
-
